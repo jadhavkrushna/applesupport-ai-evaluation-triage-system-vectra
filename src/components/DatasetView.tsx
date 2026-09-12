@@ -63,8 +63,9 @@ export const DatasetView: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header with Stats & Export */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-700 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="relative overflow-hidden p-6 rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950/30 to-slate-900 border border-sky-500/20 shadow-xl animate-fade-in-up">
+        <div className="absolute inset-0 grid-overlay opacity-40 pointer-events-none" />
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2 mb-2">
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-400 border border-sky-500/30">
@@ -74,11 +75,11 @@ export const DatasetView: React.FC = () => {
                 Exactly 200 Hand-Labelled Items
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
               Golden Evaluation Dataset
             </h1>
-            <p className="text-sm text-slate-300 mt-1 max-w-2xl">
-              Curated from the Kaggle Customer Support on Twitter (@AppleSupport) domain. 
+            <p className="text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+              Curated from the Kaggle Customer Support on Twitter (@AppleSupport) domain.
               Features realistic noise, authentic user handles, typos, edge cases, multi-intent cascades, and expert reference replies.
             </p>
           </div>
@@ -88,16 +89,16 @@ export const DatasetView: React.FC = () => {
               id="btn-download-json"
               href="/api/export/dataset.json"
               download
-              className="px-3 py-2 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition flex items-center space-x-1.5"
+              className="px-3 py-2 text-xs font-medium text-slate-200 bg-slate-800/80 hover:bg-slate-800 rounded-lg border border-slate-700 hover:border-slate-600 transition flex items-center space-x-1.5"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-amber-400" />
               <span>Download JSON</span>
             </a>
             <a
               id="btn-download-csv"
               href="/api/export/dataset.csv"
               download
-              className="px-3 py-2 text-xs font-medium text-white bg-sky-600 hover:bg-sky-500 rounded-lg transition flex items-center space-x-1.5 shadow-sm"
+              className="px-3 py-2 text-xs font-medium text-white bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-sky-900/40"
             >
               <FileSpreadsheet className="w-3.5 h-3.5" />
               <span>Download CSV</span>
@@ -106,25 +107,26 @@ export const DatasetView: React.FC = () => {
         </div>
 
         {/* Mini stats badges */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-700/60">
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+        <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-700/40">
+          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 stat-number">
             <span className="text-[11px] text-slate-400 font-medium block">Total Hand-Labelled</span>
-            <span className="text-xl font-bold text-white">200 Examples</span>
+            <span className="text-xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>200 Examples</span>
           </div>
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 stat-number delay-100">
             <span className="text-[11px] text-slate-400 font-medium block">Escalation Ground Truth</span>
-            <span className="text-xl font-bold text-amber-400">{totalEscalated} Escalated ({((totalEscalated / 200) * 100).toFixed(0)}%)</span>
+            <span className="text-xl font-bold text-amber-400" style={{ fontFamily: 'Outfit, sans-serif' }}>{totalEscalated} Escalated ({((totalEscalated / 200) * 100).toFixed(0)}%)</span>
           </div>
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 stat-number delay-200">
             <span className="text-[11px] text-slate-400 font-medium block">Auto-Handled</span>
-            <span className="text-xl font-bold text-emerald-400">{200 - totalEscalated} Routine ({(((200 - totalEscalated) / 200) * 100).toFixed(0)}%)</span>
+            <span className="text-xl font-bold text-emerald-400" style={{ fontFamily: 'Outfit, sans-serif' }}>{200 - totalEscalated} Routine ({(((200 - totalEscalated) / 200) * 100).toFixed(0)}%)</span>
           </div>
-          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+          <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 stat-number delay-300">
             <span className="text-[11px] text-slate-400 font-medium block">Inter-Annotator Agreement</span>
-            <span className="text-xl font-bold text-sky-400">96% Intent / 94% Esc.</span>
+            <span className="text-xl font-bold text-sky-400" style={{ fontFamily: 'Outfit, sans-serif' }}>96% Intent / 94% Esc.</span>
           </div>
         </div>
       </div>
+
 
       {/* Sampling Methodology Drawer */}
       <div className="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-sm">

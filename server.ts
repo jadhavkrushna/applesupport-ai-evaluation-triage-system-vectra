@@ -41,6 +41,96 @@ async function startServer() {
     });
   });
 
+  // GET /api/intents — return the full operational intent taxonomy
+  app.get('/api/intents', (req, res) => {
+    res.json({
+      brand: '@AppleSupport',
+      taxonomyVersion: '1.0.0',
+      totalIntents: 6,
+      derivationMethod: 'Embedding-cluster inspection of Kaggle Twitter corpus (@AppleSupport domain, ~84k tweets), followed by manual human naming and SOP cross-referencing.',
+      intents: [
+        {
+          id: 'HARDWARE_BATTERY',
+          label: 'Hardware & Battery',
+          description: 'Customer reports physical device problems: battery drain, battery health degradation, overheating, swollen/bulging battery (P0 safety), broken screen, button failures, port issues, liquid damage, or power-on failures.',
+          exampleTweets: [
+            '@AppleSupport my iPhone 13 battery dropped 40% in two hours on standby',
+            '@AppleSupport URGENT! My iPhone 12 back glass is bulging out — smells like burning plastic!',
+            '@AppleSupport charger only works tilted at a weird angle, dust in port?'
+          ],
+          escalationPropensity: 'high',
+          p0SafetyRisk: true,
+          shareOfGoldenSet: '17.5%'
+        },
+        {
+          id: 'SOFTWARE_OS_UPDATE',
+          label: 'Software & OS / Updates',
+          description: 'Customer experiences software-layer failures: iOS/macOS update stuck or failed, app crashes, boot loops, frozen screens, storage bugs, Safari/browser glitches, or feature regressions after an update.',
+          exampleTweets: [
+            '@AppleSupport iOS update stuck on Preparing Update for 4 hours',
+            '@AppleSupport after 17.3 my screen randomly goes black and I have to force restart',
+            '@AppleSupport Safari crashes every time I open it since the latest update'
+          ],
+          escalationPropensity: 'medium',
+          p0SafetyRisk: false,
+          shareOfGoldenSet: '17.5%'
+        },
+        {
+          id: 'ICLOUD_ACCOUNT_SECURITY',
+          label: 'iCloud / Apple ID / Account Security',
+          description: 'Customer cannot access their Apple ID, reports 2FA issues, account recovery delays, iCloud sync failures, Find My problems, phishing attempts, or active account compromise.',
+          exampleTweets: [
+            '@AppleSupport my Apple ID is locked and I cannot receive the 2FA code',
+            '@AppleSupport someone in another country logged into my iCloud and changed my email!',
+            '@AppleSupport iCloud photos stopped syncing 3 days ago, storage shows full but isn\'t'
+          ],
+          escalationPropensity: 'very_high',
+          p0SafetyRisk: false,
+          shareOfGoldenSet: '17.5%'
+        },
+        {
+          id: 'BILLING_SUBSCRIPTIONS',
+          label: 'Billing & Subscriptions',
+          description: 'Customer reports unexpected charges, subscription management issues, refund requests for app purchases, accidental in-app purchases, payment method failures, or formal financial disputes.',
+          exampleTweets: [
+            '@AppleSupport I was charged $9.99 for an app I never downloaded',
+            '@AppleSupport I cancelled Apple One 3 months ago but you\'re still charging me',
+            '@AppleSupport filing a dispute with my bank — you refused my refund 3 times!'
+          ],
+          escalationPropensity: 'high',
+          p0SafetyRisk: false,
+          shareOfGoldenSet: '17.5%'
+        },
+        {
+          id: 'CONNECTIVITY_AUDIO',
+          label: 'Connectivity & Audio',
+          description: 'Customer experiences wireless connectivity problems: Wi-Fi dropping, Bluetooth pairing failures, AirPods one-sided audio or disconnects, CarPlay connection issues, cellular No SIM/SOS-only errors, or microphone/speaker faults.',
+          exampleTweets: [
+            '@AppleSupport my right AirPod Pro has no audio, left one works fine',
+            '@AppleSupport iPhone keeps dropping Wi-Fi every 10 minutes even though router is fine',
+            '@AppleSupport CarPlay disconnects every time I go over a bump'
+          ],
+          escalationPropensity: 'medium',
+          p0SafetyRisk: false,
+          shareOfGoldenSet: '17.5%'
+        },
+        {
+          id: 'GENERAL_INQUIRY_FEEDBACK',
+          label: 'General Inquiry & Feedback',
+          description: 'Customer asks for general product information, Genius Bar appointment booking, education discount eligibility, trade-in value estimates, product compatibility questions, or submits general feature feedback.',
+          exampleTweets: [
+            '@AppleSupport is the iPhone 15 Pro compatible with MagSafe accessories from 2021?',
+            '@AppleSupport how do I book a Genius Bar appointment for screen repair?',
+            '@AppleSupport what\'s the trade-in value for an iPhone 12 Pro Max in good condition?'
+          ],
+          escalationPropensity: 'low',
+          p0SafetyRisk: false,
+          shareOfGoldenSet: '12.5%'
+        }
+      ]
+    });
+  });
+
   // Run live pipeline for a single tweet
   app.post('/api/pipeline/run', async (req, res) => {
     try {

@@ -49,8 +49,9 @@ export const BenchmarkView: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Hero Banner */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-700 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="relative overflow-hidden p-6 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950/30 to-slate-900 border border-indigo-500/20 shadow-xl animate-fade-in-up">
+        <div className="absolute inset-0 grid-overlay opacity-40 pointer-events-none" />
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <div className="flex items-center space-x-2 mb-2">
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
@@ -60,10 +61,10 @@ export const BenchmarkView: React.FC = () => {
                 Evaluated against 200 Golden Ground Truth Labels
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Evaluation Harness & Baseline Comparisons
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              Evaluation Harness &amp; Baseline Comparisons
             </h1>
-            <p className="text-sm text-slate-300 mt-1 max-w-2xl">
+            <p className="text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
               Proving system efficacy through automated metric validation across three distinct model paradigms: 
               a trivial rule-based keyword baseline, a simple zero-shot LLM, and our candidate guardrailed RAG agent.
             </p>
